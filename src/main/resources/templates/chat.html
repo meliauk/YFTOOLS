@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>YF 频道</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/mycss.css">
+</head>
+<body>
+
+<div style="background: #6777ef;width: 100vw ;height: 100px;text-align: center;  margin-bottom: 50px;">
+    <p style="font-weight: bold;color: white;font-size: 24px;  padding-top: 15px  ">YFTOOLS</p>
+    <input type="hidden" th:value="${session.user.uname}" class="uname">
+    <div class="container tools-top-page">弋凡 聊天频道 </div>
+</div>
+
+<div class="container" id="app">
+    <div class="row" style="border: 1px solid #000000">
+        <div class="col col-sm-8" id="msg" style="border-right: 2px solid #6777ef;height: 500px;overflow:auto; " ></div>
+        <div class="col col-sm-4">
+            <ul id="ras">
+                <li  v-for="(item,i) in users"><input type="radio" :value="item.uname" name="redio"> {{item.uname}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <textarea class="form-control" id="texts"style="position: absolute;left: 0px"></textarea>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-info one">个人</button>
+            <button class="btn btn-info all">群发</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+<script src="/js/chat/sockjs.min.js"></script>
+<script src="/js/chat/stomp.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script>
+
+    new Vue({
+        el:'#app',
+        data:{
+            users:[],
+        },
+        mounted(){
+            this.chat();
+        },
+        methods:{
+            chat(){
+                axios.get('/user/All').then(res=>{
+                    this.users = res.data;
+                })
+            }
+        }
+    });
+
+
+    var name ='';
+    // 连接
+    var socket = new SockJS("http://zfan.top/socket");
+    stompClient = Stomp.over(socket);
+    stompClient.connect( {}, function (frame) {
+        //订阅广播
+        stompClient.subscribe('/topic/message', function (res) {
+            $("#msg").append("<p class='text-center' ><span>"+JSON.parse(res.body).name +"</span>" + "<span style='color: red'> (全体消息) : </span>" +  JSON.parse(res.body).message  +  " </p>");
+        });
+
+        // 个人  == > 接收的消息 (订阅自己)
+        name = $(".uname").val();
+        stompClient.subscribe('/user/'+name+'/ptp', function (res) {
+            console.log(name+"---------");
+            // showGreeting(JSON.parse(data.body).content);
+            console.log("res => "+res);
+            $("#msg").append(
+              "  <div class='media text-left'> <img src='https://q4.qlogo.cn/g?b=qq&amp;nk=2050781802@qq.com&amp;s=3?d=retro' alt='null'  class='rounded-circle mr-1' width='40px'>" +
+                " <div class='media-body'><h5 class='mt-0'> "+JSON.parse(res.body).name+" </h5>"+JSON.parse(res.body).message +"</div>  </div>  "
+            );
+        });
+
+    },function (error) {
+        console.log('连接失败【' + error + '】');
+    });
+
+    // 断开连接
+    $("#disconnect").click(function () {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+            alert('用户: '+name+'   ...断开连接...');
+            $("#msg").html("");
+        }
+    });
+
+    // 单个发送
+    $(".one").click(function () {
+        var info = {};
+        info.toname = $('input:radio:checked').val();
+        info.name = name ;
+        info.message = $("#texts").val();
+        info.date = "1212";
+        if(info.toname != info.name && info.message != null && info.message!='' ){
+            $("#msg").append(
+                "  <div class='media text-right'>" +
+                " <div class='media-body'><h5 class='mt-0'> "+ info.name+" </h5>"+info.message +"</div>  <img class='rounded-circle mr-1' width='40px' src='https://q4.qlogo.cn/g?b=qq&amp;nk=2050781802@qq.com&amp;s=3?d=retro' alt='null'> </div>  "
+            );
+            stompClient.send("/yifan/chatTo", {}, JSON.stringify(info) );
+        }else {
+            alert("不能给自己发送消息,内容不能为空~")
+        }
+        clearText();
+
+    });
+
+    // 群发
+    $(".all").click(function () {
+        var info = {};
+        info.name = name;
+        info.message = $("#texts").val();
+        info.date = "1212";
+        stompClient.send("/yifan/chat", {}, JSON.stringify(info) );
+        clearText();
+    });
+
+    // 清空输入框
+    function clearText(){
+        $("#texts").val("");
+    }
+
+    //窗口关闭时，关闭连接
+    window.onbeforeunload=function() {
+        socket.close();
+    };
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

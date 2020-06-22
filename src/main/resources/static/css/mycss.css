@@ -1,0 +1,13 @@
+html{
+    font-size: 16px;
+}
+.modal-backdrop{z-index:10;}
+.tools-top-page{
+    position: relative;
+    top: 5px;
+    background: #fff;
+    height: 50px;
+    border-radius: 2px 2px 0px 0px;
+    line-height: 50px;
+    box-shadow: 0px 1px 0px #e1e1e1;
+}

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/v4-shims.min.css">
+    <link rel="stylesheet" th:href="@{/css/style-purple.css}">
+    <link rel="stylesheet" href="/css/sidebar-menu.css">
+    <link rel="stylesheet" href="/css/mycss.css">
+
+    <title>YFTools 首页</title>
+    <style>
+        .card-header i {
+            vertical-align: 1px;
+            font-size: 1rem;
+        }
+
+        .section .section-header .section-header-breadcrumb {
+            flex-basis: 0;
+        }
+
+        .wizard-step-active {
+            cursor: pointer;
+        }
+
+        .btn-quantumult {
+            background: linear-gradient(to right, black, black) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.38);
+            margin-bottom: 16px;
+        }
+        .btn-shadowrocket {
+            background: linear-gradient(to right, #3671b9, #3671b9) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px #3671b99a;
+            margin-bottom: 16px;
+        }
+        .btn-kitsunebi {
+            background: linear-gradient(to right, #f2885b, #e83c9a) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 4px #ff567885;
+            margin-bottom: 16px;
+        }
+        .btn-ssr {
+            background: linear-gradient(to right, #e780a3, #e780a3) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px #e780a2b0;
+            margin-bottom: 16px;
+        }
+        .btn-v2ray {
+            background: linear-gradient(to right, #df268f, #a73178) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px #df268f63;
+            margin-bottom: 16px;
+        }
+        .btn-ss {
+            background: linear-gradient(to right, #187abb, #187abb) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px #3671b99a;
+            margin-bottom: 16px;
+        }
+        .btn-surge {
+            background: linear-gradient(to right, #5c97f0, #b769f3) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px #8d7cfab2;
+            margin-bottom: 16px;
+        }
+        .btn-clash {
+            background: linear-gradient(to right, #49BCFC, #3B92F8) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px rgba(73, 189, 252, 0.521);
+            margin-bottom: 16px;
+        }
+        .btn-surfboard {
+            background: linear-gradient(to right, #303030, #303030) !important;
+            color: white !important;
+            border-color: transparent;
+            border: none;
+            box-shadow: 0 2px 6px #3030306e;
+            margin-bottom: 16px;
+        }
+        .wizard-steps .wizard-step .wizard-step-label {
+            text-transform: none;
+        }
+        .buttons a {
+            width: 230px;
+        }
+    </style>
+</head>
+<body class="">
+<div id="app">
+    <div class="main-wrapper">
+        <div th:insert="~{navigation :: NAV}"></div>
+        <div class="main-content" style="min-height: 623px;">
+            <section class="section">
+                <div class="section-header">
+                    <h1>首页</h1>
+                    <div class="section-header-breadcrumb">
+                        <div id="checkin-div" class="breadcrumb-item active">
+                            <a href="#" onclick="checkin()" class="btn btn-icon icon-left btn-primary"><i class="far fa-calendar-check"></i> 每日签到</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 具体内容-->
+                <div class="alert alert-primary">
+                    公告~
+                </div>
+                <div class="row">
+                    <!-- 网站运行时长-->
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>网站时长</h4>
+                                </div>
+                                <div class="card-body">
+                                    <span class="counter">10</span> 天
+                                </div>
+                            </div>
+                            <div class="card-stats">
+                                <div class="card-stats-title" style="padding-top: 0;padding-bottom: 4px;">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                登录 IP：
+                                                <span>127.0.0.1</span>
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 登录地点-->
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-info bg-info">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>登录地点</h4>
+                                </div>
+                                <div class="card-body" style="font-size: 25px" >襄阳</div>
+                                <div class="card-stats">
+                                    <div class="card-stats-title" style="padding-top: 0;padding-bottom: 4px;">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item active" aria-current="page">上次登录: 05-10 17:47:58</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  总用户-->
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-success bg-success">
+                                <i class="fas fa-dove"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>用户数量</h4>
+                                </div>
+                                <div class="card-body">
+                                    <span class="counter">123</span>人
+                                </div>
+                                <div class="card-stats">
+                                    <div class="card-stats-title" style="padding-top: 0;padding-bottom: 4px;">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item active" aria-current="page">新注册： 1 人</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  访问人数-->
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-warning bg-warning">
+                                <i class="fas fa-flushed"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>今日访问人数</h4>
+                                </div>
+                                <div class="card-body">
+                                    <span class="counter">100</span>人
+                                </div>
+                                <div class="card-stats">
+                                    <div class="card-stats-title" style="padding-top: 0;padding-bottom: 4px;">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item active" aria-current="page">总计：1000 &nbsp;&nbsp; 昨日：50</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="/js/sidebar-menu.js" ></script>
+<script src="/js/my.js" ></script>
+
+</html>

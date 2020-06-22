@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>YFT</title>
+</head>
+<body class="">
+
+<div>
+    <div th:fragment="NAV">
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <form class="form-inline mr-auto">
+                <ul class="navbar-nav mr-3">
+                    <li class="menu"><a href="#" data-toggle="control-sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                </ul>
+            </form>
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown dropdown-list-toggle"></li>
+                <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                    <img alt="image" src="https://q4.qlogo.cn/g?b=qq&amp;nk=2050781802@qq.com&amp;s=3?d=retro" class="rounded-circle mr-1">
+                    <div class="d-sm-none d-lg-inline-block">Hi , <span  th:text="${session.user.uname}"></span></div>
+                </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/user/account" class="dropdown-item has-icon">
+                            <i class="fas fa-user"></i> 我的账号
+                        </a>
+                        <a href="/user/profile" class="dropdown-item has-icon">
+                            <i class="fas fa-wallet"></i> 我的简介
+                        </a>
+                        <a href="/user/invite" class="dropdown-item has-icon">
+                            <i class="fas fa-laugh-squint"></i> 邀请注册
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/user/logout" class="dropdown-item has-icon text-danger">
+                            <i class="fas fa-sign-out-alt"></i> 退出登录
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="main-sidebar sidebar-style-2 sidebar" tabindex="1" style="overflow: hidden; outline: none;">
+            <aside id="sidebar-wrapper">
+                <div class="sidebar-brand">
+                    <a href="#" class="menu">YFTools</a>
+                </div>
+                <div class="sidebar-brand sidebar-brand-sm">
+                    <a href="#">YF</a>
+                </div>
+                <ul class="sidebar-menu">
+                    <li  class="active" id="myIndex"><a class="nav-link" href="/user/index"><i  class="fab fa-fort-awesome"></i> <span>首页</span></a></li>
+                    <li id="myTools"><a class="nav-link" href="/user/tools"><i class="fas fa-store"></i> <span>工具</span></a></li>
+                    <li  class="menu-header">我的</li>
+                    <li id="myAccount"><a class="nav-link" href="/user/account"><i class="fas fa-user"></i> <span>我的账号</span></a></li>
+                    <li id="myProfile"><a class="nav-link" href="/user/profile"><i class="fas fa-wallet"></i> <span>我的简介</span></a></li>
+                    <li id="myInvite"><a class="nav-link" href="/user/invite"><i class="fas fa-laugh-squint"></i> <span>邀请注册</span></a></li>
+                    <li class="menu-header">使用</li>
+                    <li><a class="nav-link" href="/user/plan"><i class="fas fa-server"></i> <span>更新记录</span></a></li>
+                    <li><a class="nav-link" href="/user/tutorial"><i class="fas fa-book"></i> <span>其他二</span></a></li>
+                    <li><a class="nav-link" href="/user/subscribe_log"><i class="fas fa-stream"></i> <span>其他三</span></a></li>
+                </ul>
+                <!--  关注弋凡-->
+                <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+                    <!-- 模态框-->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-lg btn-block btn-icon-split" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fab fa-telegram-plane"></i>关注<span>弋凡</span>微信公众号
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" style="z-index: 10"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">弋凡公众号</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img style=" clear: both; display: block; margin: auto;"  th:src="@{/img/wx.png}" alt="null" width="150px">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>YFTools 用户信息</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="/css/v4-shims.min.css">
+    <link rel="stylesheet" th:href="@{/css/style-purple.css}">
+    <link rel="stylesheet" href="/css/sidebar-menu.css">
+    <link rel="stylesheet" href="/css/mycss.css">
+    <style>
+        .update-user div{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div th:insert="~{navigation :: NAV}"></div>
+    <div class="main-content" style="min-height: 623px;">
+        <section class="section">
+            <div class="section-header">
+                <h1>账户</h1>
+                <div class="section-header-breadcrumb">
+                    <div id="checkin-div" class="breadcrumb-item active">
+                        <a href="#" onclick="checkin()" class="btn btn-icon icon-left btn-primary"><i class="far fa-calendar-check"></i> 每日签到</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 具体内容-->
+            <div class="alert alert-primary">
+                公告~
+            </div>
+            <div class="row">
+                <div style="width: 100vw " class="update-user">
+                    <input type="hidden" name="id" th:value="${session.user.uid}">
+                    <div class="form-group col-md-5 col-sm-12">
+                        <label >用户名</label>
+                        <input type="text" name="name" class="form-control" th:value="${session.user.uname}">
+                    </div>
+                    <div class="form-group col-md-5 col-sm-12">
+                        <label>密码</label>
+                        <input type="text" name="password" class="form-control"  th:value="${session.showPassword}">
+                    </div>
+                    <div class="form-group col-md-5 col-sm-12">
+                        <label>令牌</label>
+                        <input type="text" disabled="disabled" name="password" class="form-control" th:value="${session.user.utoken}">
+                    </div>
+                    <div class="form-group col-md-5 col-sm-12">
+                        <label>邮箱</label>
+                        <input type="email" name="email" class="form-control"  aria-describedby="emailHelp" th:value="${session.user.uemail}">
+
+                    </div>
+                    <div class="form-group col-md-5 col-sm-12">
+                        <label>手机号</label>
+                        <input type="number" name="phone" class="form-control" th:value="${session.user.uphone}">
+                    </div>
+                    <div class="form-group  col-sm-12">
+                        <label>信息</label>
+                        <textarea type="number" name="info" class="form-control" th:value="${session.user.uinfo}" rows="3"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary pull-right btn-update"  style="margin-right: 20px">更新信息</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+<script src="/js/sidebar-menu.js" ></script>
+<script src="/js/my.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<script>
+    $(function () {
+        $("#myIndex").removeClass("active");
+        $("#myTools").removeClass("active");
+        $("#myAccount").removeClass("active");
+        $("#myProfile").addClass("active");
+        $("#myInvite").removeClass("active");
+    });
+
+    $(".btn-update").click(function () {
+
+        $.ajax({
+            type: "post",
+            url: '/user/updateUser',
+            data: {
+                name:$("input[name='name']").val(),
+                password:$("input[name='password']").val(),
+                email:$("input[name='email']").val(),
+                phone:$("input[name='phone']").val(),
+                info:$("textarea[name='info']").val(),
+                id:$("input[name='id']").val(),
+            },
+            success: function (data) {
+              console.log(data)
+            }
+        });
+
+    });
+
+
+
+
+</script>
+
+</html>
